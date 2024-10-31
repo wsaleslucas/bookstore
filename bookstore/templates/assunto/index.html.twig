@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Assuntos{% endblock %}
+
+{% block body %}
+    <h1>Assuntos</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Cod.</th>
+                <th>Descrição</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for assunto in assuntos %}
+            <tr>
+                <td>{{ assunto.codAs }}</td>
+                <td>{{ assunto.descricao }}</td>
+                <td>
+                    <div class="btn-group me-2">
+                        <a type="button" class="btn btn-sm btn-outline-secondary" href="{{ path('app_assunto_edit', {'id': assunto.codAs}) }}">Editar</a>
+                        <a type="button" id="delete_subject" class="btn btn-sm btn-outline-secondary" onclick="deleteSubject({{ assunto.codAs }})">Excluir</a>
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Nenhum resultado encontrado</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a type="button" class="btn btn-primary" href="{{ path('app_assunto_new') }}">Novo</a>
+
+
+    <script language="JavaScript">
+        function deleteSubject(AssuntoCod) {
+            if (!confirm("Deseja realmente deletar esse assunto")){
+                return;
+            }
+
+            var path = '/assunto/delete/'+AssuntoCod;
+            $.post(path, function(data){
+                alert(data.message);
+                if (data.code == 200) {
+                    window.location.href = "/assunto";
+                }
+            })
+        }
+    </script>
+{% endblock %}

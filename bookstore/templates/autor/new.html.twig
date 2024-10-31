@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Autor{% endblock %}
+
+{% block body %}
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Criar Autor</h1>
+    </div>
+
+    <div class="table-responsive">
+        <form action="{{ path('app_autor_new') }}" method="post">
+
+            <div class="mb-3">
+                {{ form_row(form.nome, {'attr' :{'class' : 'form-control'}})}}
+                <div id="emailHelp" class="form-text">Aqui deve ser preenchido o nome autor dos livros</div>
+            </div>
+
+            <a type="button" class="btn btn-secondary"  href="{{ path('app_autor_index') }}">Voltar</a>
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+    </div>    
+{% endblock %}

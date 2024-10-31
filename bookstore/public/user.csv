@@ -1,0 +1,5 @@
+cod,titulo,editora,edicao,ano_publicacao,id,autor_cod_au,livro_cod,cod_au,nome,cod_as,descricao
+4,Livro4,editora1,1,2024,4,1,4,1,Autor,1,Assunto
+3,Livro3,editora1,1,2024,3,1,3,1,Autor,1,Assunto
+2,Livro2,editora1,1,2024,2,1,2,1,Autor,1,Assunto
+1,"livro 1",1,1,2024,1,1,1,1,Autor,1,Assunto

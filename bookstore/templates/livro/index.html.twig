@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Livro{% endblock %}
+
+{% block body %}
+    <h1>Livros</h1>
+
+    {% set queryParams = app.request.query.all %}
+    {% set haveError = 0 %}
+
+    {% for key, value in queryParams  %}
+        {% if key == 'status' and  value == 'ERRO' %}
+            {% set haveError = 1 %}
+        {% endif %}
+    {% endfor %}
+
+    {% if haveError == 1 %}
+        <div class="alert alert-danger" role="alert">
+            {{ queryParams['message'] }}
+        </div>
+    {% endif %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Cod</th>
+                <th>Titulo</th>
+                <th>Editora</th>
+                <th>Edição</th>
+                <th>Ano de Publicação</th>
+                <th>preço</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for livro in livros %}
+            <tr>
+                <td>{{ livro.cod }}</td>
+                <td>{{ livro.titulo }}</td>
+                <td>{{ livro.editora }}</td>
+                <td>{{ livro.edicao }}</td>
+                <td>{{ livro.anoPublicacao }}</td>
+                <td>{{ livro.preco }}</td>
+                <td>
+                    <div class="btn-group me-2">
+                        <a type="button" class="btn btn-sm btn-outline-secondary" href="{{ path('app_livro_edit', {'id': livro.cod}) }}">Editar</a>
+                        <a type="button" id="delete_subject" class="btn btn-sm btn-outline-secondary" onclick="deleteSubject({{ livro.cod }})">Excluir</a>
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Nenhum resultado encontrado</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a type="button" class="btn btn-primary" href="{{ path('app_livro_new') }}">Novo</a>
+
+
+    <script language="JavaScript">
+        function deleteSubject(autorCod) {
+            if (!confirm("Deseja realmente deletar esse Livro")){
+                return;
+            }
+
+            var path = '/livro/delete/'+autorCod;
+            $.post(path, function(data){
+                alert(data.message);
+                if (data.code == 200) {
+                    window.location.href = "/livro";
+                }
+            })
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Autor index{% endblock %}
+
+{% block body %}
+
+    <h1>Autor</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Cod.</th>
+            <th>Descrição</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for autor in autores %}
+            <tr>
+                <td>{{ autor.codAu }}</td>
+                <td>{{ autor.nome }}</td>
+                <td>
+                    <div class="btn-group me-2">
+                        <a type="button" class="btn btn-sm btn-outline-secondary" href="{{ path('app_autor_edit', {'id': autor.codAu}) }}">Editar</a>
+                        <a type="button" id="delete_subject" class="btn btn-sm btn-outline-secondary" onclick="deleteSubject({{ autor.codAu }})">Excluir</a>
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Nenhum resultado encontrado</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a type="button" class="btn btn-primary" href="{{ path('app_autor_new') }}">Novo</a>
+
+
+    <script language="JavaScript">
+        function deleteSubject(autorCod) {
+            if (!confirm("Deseja realmente deletar esse autor")){
+                return;
+            }
+
+            var path = '/autor/delete/'+autorCod;
+            $.post(path, function(data){
+                alert(data.message);
+                if (data.code == 200) {
+                    window.location.href = "/autor";
+                }
+            })
+        }
+    </script>
+
+{% endblock %}

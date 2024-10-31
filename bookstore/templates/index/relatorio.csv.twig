@@ -1,0 +1,6 @@
+{% block body %}
+Livro;Autor;Assunto;Editora;Ano;
+{% for livro in relatorio %}
+{{ livro.titulo }};{{ livro.nome }};{{ livro.descricao }};{{ livro.editora }};{{ livro.ano_publicacao }}
+{% endfor %}
+{% endblock %}

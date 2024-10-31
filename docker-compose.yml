@@ -1,0 +1,35 @@
+services:
+  web:
+    image: nginx:1.14
+    ports:
+      - "8080:80"
+      - "80:80"
+    volumes:
+      - ./bookstore:/var/www/html/bookstore
+      - ./config/bookstore.conf:/etc/nginx/conf.d/bookstore.conf
+    links:
+      - php
+      - redis
+    container_name: web
+  php:
+    build: .
+    volumes:
+      - ./bookstore:/var/www/html/bookstore
+    environment:
+      - PHP_IDE_CONFIG=serverName=docker
+    container_name: php
+  redis:
+    image: redis:4.0
+    ports:
+      - "6379:6379"
+    container_name: redis
+  db_57:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - "3311:3306"
+    volumes:
+      - ./config/dump_mysql.sql:/docker-entrypoint-initdb.d/1.sql
+      - ./config/mysql_conf.cnf:/etc/mysql/conf.d/mysql_dev.cnf
+    container_name: db_57

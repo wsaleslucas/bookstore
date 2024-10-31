@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Livro{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Editar Livro</h1>
+    </div>
+
+    <div class="table-responsive">
+        <form name="autor" method="post">
+
+            <div class="mb-3">
+                {{ form_row(form.titulo, {'attr' :{'class' : 'form-control'}})}}
+            </div>
+            <div class="mb-3">
+                {{ form_row(form.editora, {'attr' :{'class' : 'form-control'}})}}
+            </div>
+            <div class="mb-3">
+                {{ form_row(form.edicao, {'attr' :{'class' : 'form-control'}})}}
+            </div>
+            <div class="mb-3">
+                {{ form_row(form.anoPublicacao, {'attr' :{'class' : 'form-control'}})}}
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                </div>
+                <input type="text" class="form-control" disabled>
+                <div class="input-group-append">
+                    <span class="input-group-text">.00</span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label> Autores </label>
+                <select class="form-select" multiple aria-label="Multiple select example" id="livro_autores[]" name="livro[autores][]" required="required">
+                    {% for autor in autores %}
+                        {% set valSelected = '' %}
+                        {% for autorSel in autoresSel %}
+                            {% if autor.codAu ==  autorSel.autorCodAu.codAu %}
+                                {% set valSelected = 'selected' %}
+                            {% endif %}
+                        {% endfor %}
+                        <option {{ valSelected }} value="{{ autor.codAu }}">{{ autor.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label> Assuntos </label>
+                <select class="form-select" multiple aria-label="Multiple select example" id="livro_assuntos[]" name="livro[assuntos][]" required="required">
+                    {% for assunto in assuntos %}
+                        {% set valSelected = '' %}
+                        {% for assuntoSel in assuntosSel %}
+                            {% if assunto.codAs ==  assuntoSel.assuntCodAs.codAs %}
+                                {% set valSelected = 'selected' %}
+                            {% endif %}
+                        {% endfor %}
+
+                        <option {{ valSelected }} value="{{ assunto.codAs }}">{{ assunto.descricao }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <a type="button" class="btn btn-secondary"  href="{{ path('app_livro_index') }}">Voltar</a>
+            <button type="submit" class="btn btn-primary">Alterar</button>
+        </form>
+
+    </div>
+{% endblock %}
