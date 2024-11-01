@@ -25,6 +25,7 @@ $ docker ps -a
 $ docker exec -it php bash
 $ cd bookstore
 $ composer install
+$ chmod -R 777 .
 ```
 ** saia do container
 

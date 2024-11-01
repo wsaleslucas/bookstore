@@ -68,7 +68,4 @@ from
         join `bookstore`.`livro_assunto` `la2` on
         ((`la2`.`livro_cod` = `l`.`cod`)))
         join `bookstore`.`assunto` `a2` on
-        ((`a2`.`cod_as` = `la2`.`assunt_cod_as`)))
-group by
-    `la`.`livro_cod`,
-    `la`.`autor_cod_au`;
+        ((`a2`.`cod_as` = `la2`.`assunt_cod_as`)));

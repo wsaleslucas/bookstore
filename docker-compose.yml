@@ -9,7 +9,6 @@ services:
       - ./config/bookstore.conf:/etc/nginx/conf.d/bookstore.conf
     links:
       - php
-      - redis
     container_name: web
   php:
     build: .
@@ -17,12 +16,7 @@ services:
       - ./bookstore:/var/www/html/bookstore
     environment:
       - PHP_IDE_CONFIG=serverName=docker
-    container_name: php
-  redis:
-    image: redis:4.0
-    ports:
-      - "6379:6379"
-    container_name: redis
+    container_name: php    
   db_57:
     image: mysql:5.7
     environment:
