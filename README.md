@@ -23,10 +23,10 @@ $ docker ps -a
 
 ```
 $ docker exec -it php bash
+$ chown -R root:root .
 $ cd bookstore
 $ composer install
 $ chmod -R 777 .
-$ chown -R root:root .
 $ npm run build
 ```
 ** saia do container
