@@ -25,7 +25,9 @@ $ docker ps -a
 $ docker exec -it php bash
 $ cd bookstore
 $ composer install
-$ chmod -R 775 .
+$ chmod -R 777 .
+$ chown -R root:root .
+$ npm run build
 ```
 ** saia do container
 
@@ -46,7 +48,7 @@ $ docker exec -it php bash
 $ cd bookstore
 $ composer install
 ```
-depis execute
+depois execute
 ```
 # bin/phpunit 
 ```
